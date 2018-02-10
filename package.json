@@ -1,0 +1,28 @@
+{
+  "name": "simulador-quimico",
+  "version": "1.0.0",
+  "description": "\"#simulador-quimico\" \r Projeto de TCC onde será desenvolvido uma aplicação para estudo da cinética química.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/savitoh/simulador-quimico.git"
+  },
+  "author": "Sávio Raires <sávioraires10@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/savitoh/simulador-quimico/issues"
+  },
+  "homepage": "https://github.com/savitoh/simulador-quimico#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "echarts": "^4.0.2"
+  }
+}

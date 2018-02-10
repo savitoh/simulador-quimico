@@ -8,26 +8,34 @@ let A = new Array(N).fill(0);
 let B = new Array(N).fill(0);
 let num_a = new Array(t_max + 1).fill(0);
 let num_b = new Array(t_max + 1).fill(0);
+let random, index;
+
+let echart = require('echarts/lib/echarts');
+require('echarts/lib/chart/scatter');
+require('echarts/lib/component/title');
+require('echarts/lib/component/toolbox');
+require('echarts/lib/component/tooltip');
+require('echarts/lib/component/legendScroll');
 
 P_AB = Math.exp(-1 / teta);
 
 function metropolis() {
-  for (tm = 1; tm <= N; tm++) {
+  for (let i = 1; i <= N; i++) {
     random = Math.random() * N + 1;
-    var i = Math.floor(random);
-    if (A[i] != 0) {
+    index = Math.floor(random);
+    if (A[index] != 0) {
       random = Math.random();
       if (random <= P_AB) {
-        A[i] = 0;
+        A[index] = 0;
         Na = Na - 1;
-        B[i] = 1;
+        B[index] = 1;
         Nb = Nb + 1;
       }
     }
   }
 }
 
-for (i = 0; i < amostra_tot; i++) {
+for (let i = 0; i < amostra_tot; i++) {
   if (frac_a == 1) {
     A.fill(1);
     Na = N;
@@ -35,7 +43,7 @@ for (i = 0; i < amostra_tot; i++) {
     Nb = 0;
     num_a[0] = num_a[0] + (Na / N);
     num_b[0] = num_b[0] + (Nb / N);
-    for (j = 1; j <= t_max; j++) {
+    for (let j = 1; j <= t_max; j++) {
       metropolis();
       num_a[j] = num_a[j] + (Na / N);
       num_b[j] = num_b[j] + (Nb / N);
@@ -48,9 +56,9 @@ for (i = 0; i < amostra_tot; i++) {
     while (Na < (frac_a * N)) {
       random = Math.random() * N + 1;
       indice = Math.floor(random);
-      if (A[indice] == 0) {
-        A[indice] = 1;
-        B[indice] = 0;
+      if (A[index] == 0) {
+        A[index] = 1;
+        B[index] = 0;
         Na = Na + 1;
         Nb = Nb - 1;
       }
@@ -59,6 +67,11 @@ for (i = 0; i < amostra_tot; i++) {
 }
 num_a = num_a.map(it => it / amostra_tot);
 num_b = num_b.map(it => it / amostra_tot);
+
+let concentrationOfAandB = [];
+let dataA = [];
+let dataB = [];
+let indiceX = 0;
 
 function getObjectConcentrationOfAandB() {
   return {
@@ -73,10 +86,6 @@ function getObjectConcentrationOfAandB() {
   }
 }
 
-var concentrationOfAandB = [];
-var data4 = [];
-var data5 = [];
-var indiceX = 0;
 
 let option = {
   title: {
@@ -212,19 +221,19 @@ let theme = {
   }
 };
 
-// use configuration item and data specified to show chart
-let myChart = echarts.init(document.getElementById('main'), theme);
+
+let myChart = echart.init(document.getElementById('main'), theme);
 myChart.setOption(option);
 let intervalo = setInterval(function() {
   concentrationOfAandB = getObjectConcentrationOfAandB();
-  data4.push(concentrationOfAandB.concentrationOfA);
-  data5.push(concentrationOfAandB.concentrationOfB);
+  dataA.push(concentrationOfAandB.concentrationOfA);
+  dataB.push(concentrationOfAandB.concentrationOfB);
   myChart.setOption({
     series: [{
-        data: data5
+        data: dataA
       },
       {
-        data: data4
+        data: dataB
       }
     ]
   });
