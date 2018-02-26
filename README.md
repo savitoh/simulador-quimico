@@ -1,2 +1,4 @@
-"#simulador-quimico" 
-Projeto de TCC onde será desenvolvido uma aplicação para estudo da cinética química.
+Run Project:
+
+1º Install nodejs;
+2º Digit in terminal inside project folder: "node install" for dependencies install.

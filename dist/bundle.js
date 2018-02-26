@@ -25857,57 +25857,45 @@ module.exports = _default;
 
 "use strict";
 
-
-var _simulation = __webpack_require__(97);
-
-var _chart = __webpack_require__(98);
-
-var _chartController = __webpack_require__(217);
-
-var simulator = new _simulation.Simulator(100000);
+Object.defineProperty(exports, "__esModule", { value: true });
+const ReactionAforB_1 = __webpack_require__(97);
+const chart_1 = __webpack_require__(98);
+const chart_controller_1 = __webpack_require__(217);
+const ReactionAforB_2 = __webpack_require__(218);
+let simulator = new ReactionAforB_1.Simulator(100000);
 simulator.execulteSimulation();
-var num_a = simulator.getNum_a();
-var num_b = simulator.getNum_b();
-
-var mychart = _chart.echart.init(document.getElementById('main'), _chart.theme);
-mychart.setOption(_chart.option);
-var chartController = new _chartController.ChartController(mychart, num_a, num_b);
+let num_a = simulator.getNum_a();
+let num_b = simulator.getNum_b();
+let mychart = chart_1.echart.init(document.getElementById('main'), chart_1.theme);
+mychart.setOption(chart_1.option);
+let chartController = new chart_controller_1.ChartController(mychart, num_a, num_b);
 chartController.animateChart();
+let a;
+a = new ReactionAforB_2.ReactionAforB(100000);
+a.startReaction();
+console.log(a.getNum_a());
+
 
 /***/ }),
 /* 97 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Simulator", function() { return Simulator; });
+const teta = 1,
+  frac_a = 1;
+const amostra_tot = 1,
+  t_max = 20;
+let N;
+let P_AB, Na, Nb, amostra;
+let i, j, tm, random;
+let A = new Array(N).fill(0);
+let B = new Array(N).fill(0);
+let num_a = new Array(t_max + 1).fill(0);
+let num_b = new Array(t_max + 1).fill(0);
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var teta = 1,
-    frac_a = 1;
-var amostra_tot = 1,
-    t_max = 20;
-var N = void 0;
-var P_AB = void 0,
-    Na = void 0,
-    Nb = void 0,
-    amostra = void 0;
-var i = void 0,
-    j = void 0,
-    tm = void 0,
-    random = void 0;
-var A = new Array(N).fill(0);
-var B = new Array(N).fill(0);
-var num_a = new Array(t_max + 1).fill(0);
-var num_b = new Array(t_max + 1).fill(0);
-
-function setVariable(numeroMoleculas) {
+function setVariable(numeroMoleculas){
   N = numeroMoleculas;
 }
 function calculateProbabilidadeAB() {
@@ -25930,6 +25918,7 @@ function metropolis() {
   }
 }
 
+
 function monteCarloSimulation() {
   for (i = 0; i < amostra_tot; i++) {
     if (frac_a == 1) {
@@ -25937,19 +25926,19 @@ function monteCarloSimulation() {
       Na = N;
       B.fill(0);
       Nb = 0;
-      num_a[0] = num_a[0] + Na / N;
-      num_b[0] = num_b[0] + Nb / N;
+      num_a[0] = num_a[0] + (Na / N);
+      num_b[0] = num_b[0] + (Nb / N);
       for (j = 1; j <= t_max; j++) {
         metropolis();
-        num_a[j] = num_a[j] + Na / N;
-        num_b[j] = num_b[j] + Nb / N;
+        num_a[j] = num_a[j] + (Na / N);
+        num_b[j] = num_b[j] + (Nb / N);
       }
     } else {
       A.fill(0);
       B.fill(1);
       Na = 0;
       Nb = N;
-      while (Na < frac_a * N) {
+      while (Na < (frac_a * N)) {
         random = Math.random() * N + 1;
         indice = Math.floor(random);
         if (A[indice] == 0) {
@@ -25961,68 +25950,54 @@ function monteCarloSimulation() {
       }
     }
   }
-  num_a = num_a.map(function (it) {
-    return it / amostra_tot;
-  });
-  num_b = num_b.map(function (it) {
-    return it / amostra_tot;
-  });
+  num_a = num_a.map(it => it / amostra_tot);
+  num_b = num_b.map(it => it / amostra_tot);
 }
 
-var Simulator = function () {
-  function Simulator(N) {
-    _classCallCheck(this, Simulator);
+class Simulator {
 
+  constructor(N) {
     this.N = N;
     calculateProbabilidadeAB();
     setVariable(N);
   }
+  execulteSimulation() {
+    monteCarloSimulation();
+  }
 
-  _createClass(Simulator, [{
-    key: "execulteSimulation",
-    value: function execulteSimulation() {
-      monteCarloSimulation();
-    }
-  }, {
-    key: "getNum_a",
-    value: function getNum_a() {
-      return num_a;
-    }
-  }, {
-    key: "getNum_b",
-    value: function getNum_b() {
-      return num_b;
-    }
-  }]);
+  getNum_a() {
+    return num_a;
+  }
+  getNum_b() {
+    return num_b;
+  }
+}
 
-  return Simulator;
-}();
 
-exports.Simulator = Simulator;
 
 /***/ }),
 /* 98 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var echart = __webpack_require__(1);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "echart", function() { return echart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "theme", function() { return theme; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "option", function() { return option; });
+let echart = __webpack_require__(1);
 __webpack_require__(160);
 __webpack_require__(178);
 __webpack_require__(179);
 __webpack_require__(200);
 __webpack_require__(210);
 
-var theme = {
+
+let theme = {
   color: ['#26B99A', '#34495E', '#BDC3C7', '#3498DB'],
   title: {
     textStyle: {
       fontWeight: 'normal',
-      color: '#408829'
+      color: '#408829',
     }
   },
   dataRange: {
@@ -26057,7 +26032,7 @@ var theme = {
     axisLine: {
       lineStyle: {
         color: '#333'
-      }
+      },
     },
     splitArea: {
       show: true,
@@ -26076,7 +26051,7 @@ var theme = {
   }
 };
 
-var option = {
+let option = {
   title: {
     text: 'Concentração de A e B em Função de passos Monte Carlo',
     x: 'left'
@@ -26119,23 +26094,24 @@ var option = {
     max: 1
   },
   series: [{
-    name: 'Concentração de A',
-    type: 'scatter',
-    showSymbol: true,
-    smooth: true,
-    animationDuration: 1000
-  }, {
-    name: 'Concentração de B',
-    type: 'scatter',
-    showSymbol: true,
-    smooth: true,
-    animationDuration: 1000
-  }]
+      name: 'Concentração de A',
+      type: 'scatter',
+      showSymbol: true,
+      smooth: true,
+      animationDuration: 1000
+    },
+    {
+      name: 'Concentração de B',
+      type: 'scatter',
+      showSymbol: true,
+      smooth: true,
+      animationDuration: 1000
+    }
+  ]
 };
 
-exports.echart = echart;
-exports.theme = theme;
-exports.option = option;
+
+
 
 /***/ }),
 /* 99 */
@@ -43957,31 +43933,29 @@ echarts.registerAction('legendScroll', 'legendscroll', function (payload, ecMode
 
 /***/ }),
 /* 217 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var concentrationOfAandB = [];
-var num_a = [];
-var num_b = [];
-var dataA = [];
-var dataB = [];
-var indiceX = 0;
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChartController", function() { return ChartController; });
+let concentrationOfAandB = [];
+let num_a = [];
+let num_b = [];
+let dataA = [];
+let dataB = [];
+let indiceX = 0;
 
 function getObjectConcentrationOfAandB() {
   return {
-    concentrationOfA: [indiceX, num_a.shift()],
-    concentrationOfB: [indiceX++, num_b.shift()]
-  };
+    concentrationOfA: [
+      indiceX,
+      num_a.shift()
+    ],
+    concentrationOfB: [
+      indiceX++,
+      num_b.shift()
+    ]
+  }
 }
 
 function setVariable(numa, numb) {
@@ -43989,10 +43963,9 @@ function setVariable(numa, numb) {
   num_b = numb;
 }
 
-var ChartController = function () {
-  function ChartController(chart, num_a, num_b) {
-    _classCallCheck(this, ChartController);
+class ChartController {
 
+  constructor(chart, num_a, num_b) {
     this.mychart = chart;
     this.num_a = num_a;
     this.num_b = num_b;
@@ -44000,33 +43973,117 @@ var ChartController = function () {
     this.animateChart = this.animateChart.bind(this);
   }
 
-  _createClass(ChartController, [{
-    key: "animateChart",
-    value: function animateChart() {
-      var intervalo = setInterval(function () {
-        concentrationOfAandB = getObjectConcentrationOfAandB();
-        dataA.push(concentrationOfAandB.concentrationOfA);
-        dataB.push(concentrationOfAandB.concentrationOfB);
-        this.mychart.setOption({
-          series: [{
+  animateChart() {
+    let intervalo = setInterval(function() {
+      concentrationOfAandB = getObjectConcentrationOfAandB();
+      dataA.push(concentrationOfAandB.concentrationOfA);
+      dataB.push(concentrationOfAandB.concentrationOfB);
+      this.mychart.setOption({
+        series: [{
             data: dataA,
             animationDuration: 1000
-          }, {
+          },
+          {
             data: dataB,
             animationDuration: 1000
-          }]
-        });
-      }.bind(this), 1900);
-      setTimeout(function () {
-        clearInterval(intervalo);
-      }, 40000);
+          }
+        ]
+      });
+    }.bind(this), 1900);
+    setTimeout(function() {
+      clearInterval(intervalo);
+    }, 40000);
+  }
+}
+
+
+
+
+/***/ }),
+/* 218 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+class ReactionAforB {
+    constructor(numberOfMolecules) {
+        this.teta = 1;
+        this.frac_a = 1;
+        this.amostra_tot = 1;
+        this.t_max = 20;
+        this.N = numberOfMolecules;
+        this.Na = this.N;
+        this.Nb = 0;
+        this.A = new Array(this.N).fill(0);
+        this.B = new Array(this.N).fill(0);
+        this.num_a = new Array(this.t_max + 1).fill(0);
+        this.num_b = new Array(this.t_max + 1).fill(0);
+        this.P_AB = Math.exp(-1 / this.teta);
     }
-  }]);
+    metropolis() {
+        let random;
+        let indice;
+        for (let tm = 1; tm <= this.N; tm++) {
+            random = Math.random() * this.N + 1;
+            indice = Math.floor(random);
+            if (this.A[indice] != 0) {
+                random = Math.random();
+                if (random <= this.P_AB) {
+                    this.A[indice] = 0;
+                    this.Na = this.Na - 1;
+                    this.B[indice] = 1;
+                    this.Nb = this.Nb + 1;
+                }
+            }
+        }
+    }
+    monteCarloSimluation() {
+        let random;
+        let indice;
+        if (this.frac_a == 1) {
+            this.A.fill(1);
+            this.B.fill(0);
+            this.num_a[0] = this.num_a[0] + (this.Na / this.N);
+            this.num_b[0] = this.num_b[0] + (this.Nb / this.N);
+            for (let j = 1; j <= this.t_max; j++) {
+                this.metropolis();
+                this.num_a[j] = this.num_a[j] + (this.Na / this.N);
+                this.num_b[j] = this.num_b[j] + (this.Nb / this.N);
+            }
+        }
+        else {
+            this.A.fill(0);
+            this.B.fill(1);
+            this.Na = 0;
+            this.Na = this.N;
+            while (this.Na < (this.frac_a * this.N)) {
+                random = Math.random() * this.N + 1;
+                indice = Math.floor(random);
+                if (this.A[indice] == 0) {
+                    this.A[indice] = 1;
+                    this.B[indice] = 0;
+                    this.Na = this.Na + 1;
+                    this.Nb = this.Nb - 1;
+                }
+            }
+        }
+        this.num_a = this.num_a.map(it => it / this.amostra_tot);
+        this.num_b = this.num_b.map(it => it / this.amostra_tot);
+    }
+    getNum_a() {
+        return this.num_a;
+    }
+    getNum_b() {
+        return this.num_b;
+    }
+    startReaction() {
+        this.monteCarloSimluation();
+    }
+}
+exports.ReactionAforB = ReactionAforB;
 
-  return ChartController;
-}();
-
-exports.ChartController = ChartController;
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=bundle.js.map

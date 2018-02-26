@@ -1,0 +1,131 @@
+let echart = require('echarts/lib/echarts');
+require('echarts/lib/chart/scatter');
+require('echarts/lib/component/title');
+require('echarts/lib/component/toolbox');
+require('echarts/lib/component/tooltip');
+require('echarts/lib/component/legendScroll');
+
+
+let theme = {
+  color: ['#26B99A', '#34495E', '#BDC3C7', '#3498DB'],
+  title: {
+    textStyle: {
+      fontWeight: 'normal',
+      color: '#408829',
+    }
+  },
+  dataRange: {
+    color: ['#1f610a', '#97b58d']
+  },
+  toolbox: {
+    color: ['#408829', '#408829', '#408829', '#408829']
+  },
+  tooltip: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    axisPointer: {
+      type: 'line',
+      lineStyle: {
+        color: '#408829',
+        type: 'dashed'
+      }
+    }
+  },
+  categoryAxis: {
+    axisLine: {
+      lineStyle: {
+        color: '#333'
+      },
+      splitLine: {
+        lineStyle: {
+          color: ['#eee']
+        }
+      }
+    }
+  },
+  valueAxis: {
+    axisLine: {
+      lineStyle: {
+        color: '#333'
+      },
+    },
+    splitArea: {
+      show: true,
+      areaStyle: {
+        color: ['rgba(250, 250, 250, 0.1)', 'rgba(200, 200, 200, 0.1)']
+      }
+    },
+    splitLine: {
+      lineStyle: {
+        color: ['#eee']
+      }
+    }
+  },
+  grid: {
+    borderWidth: 0
+  }
+};
+
+let option = {
+  title: {
+    text: 'Concentração de A e B em Função de passos Monte Carlo',
+    x: 'left'
+  },
+  tooltip: {
+    show: true,
+    trigger: 'axis'
+  },
+  legend: {
+    x: 'center',
+    y: 35,
+    data: ['Concentração de A', 'Concentração de B']
+  },
+  toolbox: {
+    show: true,
+    feature: {
+      dataView: {
+        title: 'Tabela de Dados',
+        lang: ['Concentração de A e B em Função de passos Monte Carlo', 'Voltar', 'Atualizar']
+      },
+      saveAsImage: {
+        show: true,
+        pixelRatio: 2,
+        title: 'Salvar como Imagem'
+      }
+    }
+  },
+  xAxis: {
+    type: 'value',
+    scale: true,
+    boundaryGap: false,
+    min: 0,
+    max: 20
+  },
+  yAxis: {
+    name: 'Concentração',
+    type: 'value',
+    scale: true,
+    min: 0,
+    max: 1
+  },
+  series: [{
+      name: 'Concentração de A',
+      type: 'scatter',
+      showSymbol: true,
+      smooth: true,
+      animationDuration: 1000
+    },
+    {
+      name: 'Concentração de B',
+      type: 'scatter',
+      showSymbol: true,
+      smooth: true,
+      animationDuration: 1000
+    }
+  ]
+};
+
+export {
+  echart,
+  theme,
+  option
+};

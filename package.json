@@ -4,7 +4,9 @@
   "description": "\"#simulador-quimico\" \r Projeto de TCC onde será desenvolvido uma aplicação para estudo da cinética química.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "webpack",
+    "postinstall": "npm prune"
   },
   "repository": {
     "type": "git",
@@ -17,13 +19,11 @@
   },
   "homepage": "https://github.com/savitoh/simulador-quimico#readme",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
-    "webpack": "^3.10.0"
+    "awesome-typescript-loader": "^3.5.0",
+    "typescript": "^2.7.2",
+    "webpack": "^3.11.0"
   },
   "dependencies": {
-    "echarts": "^4.0.2",
-    "npm": "^5.6.0"
+    "echarts": "^4.0.2"
   }
 }
