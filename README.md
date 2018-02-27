@@ -1,4 +1,9 @@
-Run Project:
+# Running the application Locally
 
-1º Install nodejs;
-2º Digit in terminal inside project folder: "node install" for dependencies install.
+### Installation
+```sh
+$ Install nodejs
+$ Digit in terminal inside project folder: "node install" for dependencies install
+$ npm run bundle
+```
+

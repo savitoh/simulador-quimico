@@ -1,21 +1,21 @@
-const path = require('path');
+var path = require('path');
+
 module.exports = {
-    entry: "./src/ts/app.ts",
+    // Change to your "entry-point".
+    entry: './src/ts/app',
     output: {
-        filename: "bundle.js",
         path: path.resolve(__dirname, 'dist'),
+        filename: 'app.bundle.js'
     },
-    devtool: 'source-map', 
     resolve: {
-        extensions: ['.js', '.json', '.ts', '.tsx'],
+        extensions: ['.ts', '.tsx', '.js', '.json']
     },
     module: {
-        rules: [
-            {
-                test: /\.ts$/,
-                loader: "awesome-typescript-loader",
-                exclude: /node_modules/
-            },
-        ]
-    },
+        rules: [{
+            // Include ts, tsx, and js files.
+            test: /\.(tsx?)|(js)$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+        }],
+    }
 };

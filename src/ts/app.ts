@@ -11,7 +11,6 @@ import {
 import {
   ChartController
 } from '../js/chart-controller';
-import { ReactionAforB } from './ReactionAforB';
 
 
 let simulator = new Simulator(100000);
@@ -24,8 +23,3 @@ mychart.setOption(option);
 let chartController = new ChartController(mychart, num_a, num_b);
 chartController.animateChart();
 
-
-let a: ReactionAforB;
-a = new ReactionAforB(100000);
-a.startReaction();
-console.log(a.getNum_a());
