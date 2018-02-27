@@ -2,8 +2,8 @@
 
 ### Installation
 ```sh
-$ Install nodejs
-$ Digit in terminal inside project folder: "node install" for dependencies install
+$ install nodejs
+$ node install
 $ npm run bundle
 ```
 

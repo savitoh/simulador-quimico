@@ -1,6 +1,6 @@
 import { IReaction } from "./IReaction";
 
-export class ReactionAforB implements IReaction{
+export class ReactionAforBIreversible implements IReaction{
 
     private teta: number = 1;
     private frac_a: number = 1;
