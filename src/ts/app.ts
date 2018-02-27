@@ -1,6 +1,3 @@
-import {
-  Simulator
-} from '../js/ReactionAforB';
 
 import {
   echart,
@@ -12,14 +9,21 @@ import {
   ChartController
 } from '../js/chart-controller';
 
+import {
+  IReaction
+} from './IReaction';
 
-let simulator = new Simulator(100000);
-simulator.execulteSimulation();
-let num_a = simulator.getNum_a();
-let num_b = simulator.getNum_b();
+import { ReactionAforB } from './ReactionAforB';
+
+
+let reaction: IReaction;
+reaction = new ReactionAforB(100000);
+reaction.startReaction();
+
+let num_a = reaction.getConcetrations()[0];
+let num_b = reaction.getConcetrations()[1];
 
 let mychart = echart.init(document.getElementById('main'), theme);
 mychart.setOption(option);
 let chartController = new ChartController(mychart, num_a, num_b);
 chartController.animateChart();
-

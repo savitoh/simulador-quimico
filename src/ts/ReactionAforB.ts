@@ -1,4 +1,6 @@
-export class ReactionAforB{
+import { IReaction } from "./IReaction";
+
+export class ReactionAforB implements IReaction{
 
     private teta: number = 1;
     private frac_a: number = 1;
@@ -75,14 +77,11 @@ export class ReactionAforB{
         this.num_b = this.num_b.map(it => it / this.amostra_tot);
     }
 
-    public getNum_a(): number[]{
-        return this.num_a;
-    }
-    public getNum_b(): number[]{
-        return this.num_b;
-    }
-
     public startReaction(): void {
         this.monteCarloSimluation();
+    }
+
+    public getConcetrations(): Array<Array<number>>{
+        return [this.num_a, this.num_b];
     }
 }
