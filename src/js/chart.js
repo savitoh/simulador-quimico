@@ -7,7 +7,7 @@ require('echarts/lib/component/legendScroll');
 
 
 let theme = {
-  color: ['#26B99A', '#34495E', '#BDC3C7', '#3498DB'],
+  color: ['#26B99A', '#34495E', '#BDC3C7', '#3498DB', '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'],
   title: {
     textStyle: {
       fontWeight: 'normal',
@@ -68,8 +68,7 @@ let theme = {
 let option = {
   baseOption: {
     title: {
-      text: 'Concentração de A e B em Função de passos Monte Carlo',
-      x: 'left'
+      text: 'Concentração de A e B em Função de passos Monte Carlo'
     },
     tooltip: {
       show: true,
@@ -78,7 +77,7 @@ let option = {
     legend: {
       x: 'center',
       y: 35,
-      data: ['Concentração de A', 'Concentração de B']
+      data: ['[A]', '[B]']
     },
     toolbox: {
       show: true,
@@ -95,28 +94,35 @@ let option = {
       }
     },
     xAxis: {
+      name: "Passos Monte Carlo",
+      nameLocation: "center",
+      nameGap: 24,
       type: 'value',
       scale: true,
       boundaryGap: false,
       min: 0,
       max: 20
     },
+    calculable: true,
     yAxis: {
       name: 'Concentração',
+      nameRotate: 90,
+      nameLocation: "center",
+      nameGap: 30,
       type: 'value',
       scale: true,
       min: 0,
       max: 1
     },
     series: [{
-        name: 'Concentração de A',
+        name: '[A]',
         type: 'scatter',
         showSymbol: true,
         smooth: true,
         animationDuration: 1000
       },
       {
-        name: 'Concentração de B',
+        name: '[B]',
         type: 'scatter',
         showSymbol: true,
         smooth: true,

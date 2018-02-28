@@ -1,7 +1,7 @@
 import { IReaction } from "./IReaction";
 
 export class ReactionAforBReversible implements IReaction {
-    private tetaA: number = 1.5;
+    private tetaA: number = 1;
     private E_ba: number = 2;
     private tetaB: number;
     private frac_a: number = 1;
@@ -9,6 +9,7 @@ export class ReactionAforBReversible implements IReaction {
     private t_max: number = 20;
     private N: number;
     private P_AB: number;
+    private P_BA: number;
     private Na: number;
     private Nb: number;
     private A: number[];
@@ -26,6 +27,7 @@ export class ReactionAforBReversible implements IReaction {
         this.num_a = new Array(this.t_max + 1).fill(0);
         this.num_b = new Array(this.t_max + 1).fill(0);
         this.P_AB = Math.exp(-1 / this.tetaA);
+        this.P_BA = Math.exp(-1 / this.tetaB);
     }
 
     private metropolis(): void {
@@ -47,7 +49,7 @@ export class ReactionAforBReversible implements IReaction {
             indice = Math.floor(random);
             if(this.B[indice] != 0) {
                 random = Math.random();
-                if (random <= this.P_AB) {
+                if (random <= this.P_BA) {
                   this.A[indice] = 1;
                   this.Na = this.Na + 1;
                   this.B[indice] = 0;
