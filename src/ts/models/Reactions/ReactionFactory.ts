@@ -4,7 +4,7 @@ import { ReactionAforBReversible} from './ReactionAforBReversible';
 export class ReactionFactory {
 
     public getReaction(typeOfReaction: String, numberOfMolecules: number): IReaction{
-        if(typeOfReaction=="reactionAforBReversible")
+        if(typeOfReaction=="reversibleFirstOrderReaction")
             return new ReactionAforBReversible(numberOfMolecules);
         else
             return new ReactionAforBIreversible(numberOfMolecules);
