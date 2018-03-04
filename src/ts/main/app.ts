@@ -1,21 +1,19 @@
 import { echart } from '../models/Chart/Chart';
 import { ChartTheme } from '../models/Chart/ChartTheme';
 import { getChartOptions } from '../models/Chart/ChartOption'; 
-import { ChartController } from '../../js/chart-controller';
 import { IReaction } from '../models/Reactions/IReaction';
 import {ReactionFactory} from '../models/Reactions/ReactionFactory';
+import { IChartController } from '../models/Chart/IChartController';
+import { ChartControllerFactory } from '../models/Chart/ChartControllerFactory';
 
 let option = getChartOptions("reversibleFirstOrderReaction");
 
-let factoryReaction: ReactionFactory;
-factoryReaction = new ReactionFactory();
+let factoryReaction = new ReactionFactory();
 
-let reaction: IReaction;
-reaction = factoryReaction.getReaction("reversibleFirstOrderReaction", 100000);
+let reaction = factoryReaction.getReaction("reversibleFirstOrderReaction", 100000);
 reaction.startReaction();
 
-let num_a = reaction.getConcetrations()[0];
-let num_b = reaction.getConcetrations()[1];
+let concentrationOfAandB = reaction.getConcetrations();
 
 let chartOfConcentration = echart.init(<HTMLCanvasElement> document.getElementById('main'), ChartTheme);
 chartOfConcentration.setOption(option);
@@ -24,5 +22,8 @@ window.onresize = function() {
     chartOfConcentration.resize();
   }
 };
-let chartController = new ChartController(chartOfConcentration, num_a, num_b);
+
+let chartControllerFactory = new ChartControllerFactory();
+
+let chartController  = chartControllerFactory.getChartController("reversibleFirstOrderReaction", chartOfConcentration, concentrationOfAandB);
 chartController.animateChart();

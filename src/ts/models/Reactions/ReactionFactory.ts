@@ -1,12 +1,12 @@
 import { IReaction } from "./IReaction";
-import { ReactionAforBIreversible} from './ReactionAforBIreversible';
-import { ReactionAforBReversible} from './ReactionAforBReversible';
+import { IreversibleFirstOrderReaction } from './IreversibleFirstOrderReaction';
+import { ReversibleFirstOrderReaction } from './ReversibleFirstOrderReaction';
 export class ReactionFactory {
 
     public getReaction(typeOfReaction: String, numberOfMolecules: number): IReaction{
         if(typeOfReaction=="reversibleFirstOrderReaction")
-            return new ReactionAforBReversible(numberOfMolecules);
+            return new ReversibleFirstOrderReaction(numberOfMolecules);
         else
-            return new ReactionAforBIreversible(numberOfMolecules);
+            return new IreversibleFirstOrderReaction(numberOfMolecules);
     }
 }
