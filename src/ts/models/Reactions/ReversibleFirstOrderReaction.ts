@@ -1,4 +1,6 @@
 import { IReaction } from "./IReaction";
+import { IAttributesReaction } from "./IAttributesReaction";
+
 
 export class ReversibleFirstOrderReaction implements IReaction {
     private tetaA: number = 1;
@@ -17,8 +19,8 @@ export class ReversibleFirstOrderReaction implements IReaction {
     private num_a: number[];
     private num_b: number[];
 
-    constructor(numberOfMolecules: number){
-        this.N = numberOfMolecules;
+    constructor(atributesReaction: IAttributesReaction){
+        this.N = atributesReaction.numberOfMolecules;
         this.tetaB = this.tetaA/this.E_ba;
         this.Na = this.N;
         this.Nb = 0;
@@ -33,7 +35,8 @@ export class ReversibleFirstOrderReaction implements IReaction {
     private metropolis(): void {
         let random: number;
         let indice: number;
-        for(let tm = 1; tm <= this.N; tm++) {
+        const tamanho = this.N;
+        for(let i = 1; i <= tamanho; i++) {
             random = Math.random() * this.N + 1;
             indice = Math.floor(random);
             if (this.A[indice] != 0) {
@@ -67,10 +70,11 @@ export class ReversibleFirstOrderReaction implements IReaction {
             this.B.fill(0);
             this.num_a[0] = this.num_a[0] + (this.Na / this.N);
             this.num_b[0] = this.num_b[0] + (this.Nb / this.N);
-            for(let j = 1; j <= this.t_max; j++){
+            const tamanho = this.t_max;
+            for(let i = 1; i <= tamanho; i++){
                 this.metropolis();
-                this.num_a[j] = this.num_a[j] + (this.Na / this.N);
-                this.num_b[j] = this.num_b[j] + (this.Nb / this.N);
+                this.num_a[i] = this.num_a[i] + (this.Na / this.N);
+                this.num_b[i] = this.num_b[i] + (this.Nb / this.N);
             }
         } else {
             this.A.fill(0);
