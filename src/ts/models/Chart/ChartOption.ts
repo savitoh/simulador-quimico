@@ -51,15 +51,13 @@ let optionsBase = {
           name: '[A]',
           type: 'scatter',
           showSymbol: true,
-          smooth: true,
-          animationDuration: 1000
+          smooth: true
         },
         {
           name: '[B]',
           type: 'scatter',
           showSymbol: true,
-          smooth: true,
-          animationDuration: 1000
+          smooth: true
         }
       ]
     },
@@ -107,10 +105,9 @@ function buildChartOptionSecondOrderReaction() {
         name: '[C]',
         type: 'scatter',
         showSymbol: true,
-        smooth: true,
-        animationDuration: 1000
+        smooth: true
     };
-    optionsChartSecondOrderReaction.baseOption.title.text = title;
+    optionsChartSecondOrderReaction.baseOption.title.text = "Concentração de A, B e C";
     optionsChartSecondOrderReaction.baseOption.legend.data.push('[C]');
     optionsChartSecondOrderReaction.baseOption.toolbox.feature.dataView.lang[0] = title;
     optionsChartSecondOrderReaction.baseOption.series.push(objectSeriesElementC);

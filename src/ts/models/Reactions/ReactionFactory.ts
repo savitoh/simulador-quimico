@@ -1,12 +1,15 @@
 import { IReaction } from "./IReaction";
-import { IreversibleFirstOrderReaction } from './IreversibleFirstOrderReaction';
-import { ReversibleFirstOrderReaction } from './ReversibleFirstOrderReaction';
+import { IAttributesReaction } from "./IAttributesReaction";
+import { IreversibleFirstOrderReaction } from "./IreversibleFirstOrderReaction";
+import { ReversibleFirstOrderReaction } from "./ReversibleFirstOrderReaction";
+
 export class ReactionFactory {
 
-    public getReaction(typeOfReaction: String, numberOfMolecules: number): IReaction{
+    public getReaction(typeOfReaction: String, atributesReaction: IAttributesReaction): IReaction{
         if(typeOfReaction=="reversibleFirstOrderReaction")
-            return new ReversibleFirstOrderReaction(numberOfMolecules);
-        else
-            return new IreversibleFirstOrderReaction(numberOfMolecules);
+            return new ReversibleFirstOrderReaction(atributesReaction);
+        else if (typeOfReaction=="ireversibleFirstOrderReaction")
+            return new IreversibleFirstOrderReaction(atributesReaction);
+        throw new Error('not implemented');
     }
 }
