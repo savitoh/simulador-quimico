@@ -5,10 +5,7 @@ import { IAttributesReaction } from "./IAttributesReaction";
 
 export class IreversibleFirstOrderReaction implements IReaction{
 
-    private atributesReaction: IAttributesReaction
-    //private frac_a: number = 1;
-    //private amostra_tot = 1;
-    //private t_max: number = 20;
+    private atributesReaction: IAttributesReaction;
     private P_AB: number;
     private Na: number;
     private Nb: number;
