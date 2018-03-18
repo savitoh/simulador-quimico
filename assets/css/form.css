@@ -1,0 +1,53 @@
+form {
+    color: #222;
+}
+
+form .field-group {
+  display: flex;
+  margin: 0 0 20px 0;
+  justify-content: center;
+  align-items: center;
+}
+
+form .field-group .label {
+  color: #7d7d7d;
+  flex: 1;
+  text-align: right;
+  margin: 0 8px 0 0;
+  padding: 2px 0;
+}
+
+  form .field-group .field {
+    flex: 1;
+  }
+
+  form .field-group:last-child {
+    text-align: center;
+    margin: 40px 0px 40px 0px;
+  }
+
+  form .field-group:last-child .field {
+    max-width: 75%;
+  }
+
+  @media (max-width: 720px) {
+    form .field-group .label {
+      text-align: left;
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    form .field-group {
+      display: flex;
+      flex-direction: column;
+      margin: 0 0 6px 0;
+    }
+
+    form .field-group .label {
+      padding: 0 0 5px 0;
+      margin: 10px 0 0 0;
+    }
+}
+
+  
