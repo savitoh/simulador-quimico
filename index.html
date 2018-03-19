@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet">
@@ -10,7 +10,6 @@
     <title>Cinética Química</title>
   </head>
   <body class="Site">
-
       <header class="Site-Header">
           <div class="Header Header--cozy">
             <div class="Header-titles">
@@ -25,13 +24,12 @@
                   <span class="icon-github icon-large"></span>&nbsp; Código do Projeto
                 </a>
                 <a class="Header-button Button Button--wide"
-                  href="exemplo.html">
+                  href="templates/sobre-projeto.html">
                   <span class="icon-info icon-large"></span>&nbsp; Sobre o Projeto
                 </a>
             </div>
           </div>
         </header>
-
         <main class="Site-content">
             <div class="Container">
                 <h1 class="Section-heading">Simulação</h1>
@@ -47,16 +45,16 @@
                     </div>
     
                     <div class="field-group">
-                        <label for="numero-moleculas" class="label">Número de Moléculas:</label>
+                        <label for="numberOfMolecules" class="label">Número de Moléculas:</label>
                         <div class="field">
-                         <input name="numero-moleculas" id="numero-moleculas" type="number" value="" placeholder="Número de Moléculas" required>
+                            <input name="numberOfMolecules" id="numberOfMolecules" type="number" value="" placeholder="Número de Moléculas" required>
                         </div>
                     </div>
     
                     <div class="field-group">
                         <label for="temperatura" class="label">Temperatura Absoluta: </label>
                         <div class="field">
-                            <input name="temperatura" id="temperatura" type="number" value="" placeholder="kelvin" required>
+                            <input name="temperatura" id="temperatura" type="number" value="" placeholder="em kelvin" required>
                         </div>
                     </div>
     
@@ -70,14 +68,14 @@
                     <div class="field-group" style="display:none">
                         <label for="energia-ativacao-b" class="label">Energia de Ativação B: </label>
                         <div class="field">
-                            <input name="energia-ativacao-b" id="energia-ativacao-b" type="number" value="" placeholder="Energia" >
+                            <input name="energia-ativacao-b" id="energia-ativacao-b" type="number" value="" placeholder="Energia" disabled>
                         </div>
                     </div>
     
                     <div class="field-group">
                         <div class="field">
                             <a href="#chart">
-                                <button class=" Button Button--action Button--wide" id="btn-start-reaction" type="reset">
+                                <button class=" Button Button--action Button--wide" id="btn-start-reaction" type="button">
                                     <span class="icon-play icon-large "></span>&nbsp; Iniciar Reação
                                 </button>
                             </a>
