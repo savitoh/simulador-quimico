@@ -63,7 +63,7 @@
                     <div class="field-group">
                         <label for="energia-ativacao-a" class="label">Energia de Ativação A: </label>
                         <div class="field">
-                            <input name="energia-ativacao-a" id="energia-ativacao-a" type="number" value="" placeholder="Energia">
+                            <input name="energia-ativacao-a" id="energia-ativacao-a" type="number" value="" placeholder="Energia" required>
                         </div>
                     </div>
     
@@ -77,7 +77,7 @@
                     <div class="field-group">
                         <div class="field">
                             <a href="#chart">
-                                <button class=" Button Button--action Button--wide" id="btn-start-reaction" type="button">
+                                <button class=" Button Button--action Button--wide" id="btn-start-reaction" type="reset">
                                     <span class="icon-play icon-large "></span>&nbsp; Iniciar Reação
                                 </button>
                             </a>
@@ -85,8 +85,8 @@
                     </div>
     
                 </form>
+                <div id="chart" style="width: 100%; height: 450px"></div>
             </div>
-            <div id="chart" style="width: 100%; height: 450px"></div>
         </main>
         <footer class="Site-footer">
             <div class="Footer">

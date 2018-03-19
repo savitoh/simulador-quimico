@@ -7,7 +7,7 @@ import { ReactionFactory } from '../models/Reactions/ReactionFactory';
 import { IChartController } from '../models/Chart/IChartController';
 import { ChartControllerFactory } from '../models/Chart/ChartControllerFactory';
 
-export class ControllerSimulation {
+export class SimulationController {
     
     private typeOfReaction: string;
     private canvas: HTMLCanvasElement;
