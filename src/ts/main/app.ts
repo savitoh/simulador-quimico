@@ -1,23 +1,23 @@
 import { SimulationController } from "../controllers/SimulationController";
-import {visibleDivOptionSelected} from "../controllers/FormController";
-import {visibleDivChart} from "../controllers/FormController";
 import {getReactionSelected} from "../controllers/FormController";
-import {getValuesInputs} from "../controllers/FormController";
+import {getElementsInputs} from "../controllers/FormController";
+import {visibleDivChart} from "../controllers/FormController";
+import {modifyOptionSelected} from "../controllers/FormController";
+import {jump} from "../controllers/FormController";
 
 
-const selectedOption  = <HTMLSelectElement>document.getElementById("opcoes-reacoes");
-const buttonStartReaction = <HTMLElement>document.getElementById("btn-start-reaction");
-
+const form = <HTMLFormElement>document.getElementById("form");
 let simulation: SimulationController;
-let attributesReaction = { numberOfMolecules: 100000, temperatura: 1 };
 
-selectedOption.addEventListener("change", visibleDivOptionSelected);
+modifyOptionSelected();
 
-buttonStartReaction.addEventListener("click", () => {
-    console.log(getValuesInputs());
-    console.log(attributesReaction);
+form.addEventListener("submit", (evt) => {
+	evt.preventDefault();
+    simulation = new SimulationController(getReactionSelected(), <HTMLCanvasElement> document.getElementById('chart'), getElementsInputs());
     visibleDivChart();
-    simulation = new SimulationController(getReactionSelected(), <HTMLCanvasElement> document.getElementById('chart'), getValuesInputs());
+    form.reset();
+    jump("chart");
     simulation.loadSimulation();
 });
+
 
