@@ -11,12 +11,12 @@ export class SimulationController {
     
     private typeOfReaction: string;
     private canvas: HTMLCanvasElement;
-    private atribute: IAttributesReaction;
+    private atributes: IAttributesReaction;
 
-    constructor(typeOfReaction: string, canvas: HTMLCanvasElement, atribute: IAttributesReaction) {
+    constructor(typeOfReaction: string, canvas: HTMLCanvasElement, atributes: IAttributesReaction) {
             this.typeOfReaction = typeOfReaction;
             this.canvas = canvas;
-            this.atribute = atribute;
+            this.atributes = atributes;
     }
 
     public loadSimulation(): void {
@@ -24,7 +24,7 @@ export class SimulationController {
 
         let factoryReaction = new ReactionFactory();
 
-        let reaction = factoryReaction.getReaction(this.typeOfReaction, this.atribute);
+        let reaction = factoryReaction.getReaction(this.typeOfReaction, this.atributes);
         reaction.startReaction();
 
         let concentrationOfAandB = reaction.getConcetrations();
