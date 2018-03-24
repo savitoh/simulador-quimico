@@ -7,6 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src --out-dir lib --extensions \".ts,.tsx\"",
     "bundle": "webpack",
+    "build:prod": "webpack -p",
+    "publish": "./node_modules/.bin/gh-pages -d dist/ -d dist/",
     "postinstall": "npm prune"
   },
   "repository": {
@@ -29,6 +31,7 @@
     "babel-loader": "^8.0.0-beta.0",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^3.0.2",
+    "gh-pages": "^1.1.0",
     "style-loader": "^0.20.3",
     "typescript": "^2.7.2",
     "webpack": "^3.11.0"
