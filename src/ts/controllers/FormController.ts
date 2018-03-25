@@ -1,9 +1,9 @@
 const selectedOption  = <HTMLSelectElement>document.getElementById("opcoes-reacoes");
-const inputEnergiaAtivacaoB = <HTMLInputElement>document.getElementById("energia-ativacao-b");
+const inputEnergiaAtivacaoB = <HTMLInputElement>document.getElementById("energiaAtivacaoElementoB");
 const divEnergiaAtivacaoB = inputEnergiaAtivacaoB.parentElement.parentElement;
 const divChart = <HTMLDivElement>document.getElementById("chart");
 
-const elementsIDs = ["numberOfMolecules", "temperatura", "energia-ativacao-a", "energia-ativacao-b"];
+const elementsIDs = ["numberOfMolecules", "temperatura", "energiaAtivacaoElementoA", "energiaAtivacaoElementoB"];
 
 
 const jump = (h: string) => {
@@ -24,7 +24,7 @@ const visibleDivOptionSelected = () => {
 
 const modifyOptionSelected = () => selectedOption.addEventListener("change", visibleDivOptionSelected);
 
-const getElemets = (IDs: string[]) => {
+const getElemetsInputs = (IDs: string[]) => {
     return IDs.reduce(function(acc: any, id) {
         const element =  <HTMLInputElement>document.getElementById(id);
         acc[id] = element.valueAsNumber;
@@ -32,10 +32,10 @@ const getElemets = (IDs: string[]) => {
     },{});
 }
 
-const getElementsInputs = () => {return getElemets(elementsIDs)};
+const getInputsData = () => {return getElemetsInputs(elementsIDs)};
 
 const visibleDivChart = () => divChart.style.display = "block";
 
 const getReactionSelected = () => {return selectedOption.value};
 
-export {getReactionSelected, visibleDivChart, getElementsInputs, modifyOptionSelected, jump};
+export {getReactionSelected, visibleDivChart, getInputsData, modifyOptionSelected, jump};

@@ -6,8 +6,9 @@ import { IAttributesReaction } from "./IAttributesReaction";
 export class ReversibleFirstOrderReaction implements IReaction {
 
     private atributesReaction: IAttributesReaction
-    private E_ba: number = 2;
+    private E_ba: number;
     private tetaB: number;
+    private tetaA: number;
     private P_AB: number;
     private P_BA: number;
     private Na: number;
@@ -20,14 +21,16 @@ export class ReversibleFirstOrderReaction implements IReaction {
     constructor(atributesReaction: IAttributesReaction){
         this.atributesReaction = atributesReaction;
         this.Na = this.atributesReaction.numberOfMolecules;
-        this.tetaB = this.atributesReaction.temperatura/this.E_ba;
         this.Na = this.atributesReaction.numberOfMolecules;
         this.Nb = 0;
         this.A = new Array(this.atributesReaction.numberOfMolecules).fill(0);
         this.B = new Array(this.atributesReaction.numberOfMolecules).fill(0);
         this.num_a = new Array(DefaultAttributesReaction.t_max + 1).fill(0);
         this.num_b = new Array(DefaultAttributesReaction.t_max + 1).fill(0);
-        this.P_AB = Math.exp(-1 / this.atributesReaction.temperatura);
+        this.E_ba = this.atributesReaction.energiaAtivacaoElementoB/this.atributesReaction.energiaAtivacaoElementoA;
+        this.tetaA = this.atributesReaction.temperatura/this.atributesReaction.energiaAtivacaoElementoA;
+        this.tetaB = this.tetaA/this.E_ba;
+        this.P_AB = Math.exp(-1 / this.tetaA);
         this.P_BA = Math.exp(-1 / this.tetaB);
     }
 

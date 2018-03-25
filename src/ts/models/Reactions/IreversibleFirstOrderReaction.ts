@@ -12,6 +12,7 @@ export class IreversibleFirstOrderReaction implements IReaction{
     private B: number[];
     private num_a: number[];
     private num_b: number[];
+    private tetaA: number;
 
     constructor(atributesReaction: IAttributesReaction){
         this.atributesReaction = atributesReaction;
@@ -21,7 +22,8 @@ export class IreversibleFirstOrderReaction implements IReaction{
         this.B = new Array(this.atributesReaction.numberOfMolecules).fill(0);
         this.num_a = new Array(DefaultAttributesReaction.t_max + 1).fill(0);
         this.num_b = new Array(DefaultAttributesReaction.t_max + 1).fill(0);
-        this.P_AB = Math.exp(-1 / this.atributesReaction.temperatura);
+        this.tetaA = this.atributesReaction.temperatura/this.atributesReaction.energiaAtivacaoElementoA;
+        this.P_AB = Math.exp(-1 / this.tetaA);
     }
 
     private metropolis(): void {

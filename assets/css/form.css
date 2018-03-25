@@ -10,6 +10,7 @@ form .field-group {
 }
 
 form .field-group .label {
+  font-weight: 300;
   color: #7d7d7d;
   flex: 1;
   text-align: right;
@@ -24,10 +25,6 @@ form .field-group .label {
   form .field-group:last-child {
     text-align: center;
     margin: 40px 0px 40px 0px;
-  }
-
-  form .field-group:last-child .field {
-    max-width: 75%;
   }
 
   @media (max-width: 720px) {

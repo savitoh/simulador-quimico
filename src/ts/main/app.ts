@@ -1,6 +1,6 @@
 import { SimulationController } from "../controllers/SimulationController";
 import {getReactionSelected} from "../controllers/FormController";
-import {getElementsInputs} from "../controllers/FormController";
+import {getInputsData} from "../controllers/FormController";
 import {visibleDivChart} from "../controllers/FormController";
 import {modifyOptionSelected} from "../controllers/FormController";
 import {jump} from "../controllers/FormController";
@@ -12,8 +12,9 @@ let simulation: SimulationController;
 modifyOptionSelected();
 
 form.addEventListener("submit", (evt) => {
+    console.log(getInputsData());
 	evt.preventDefault();
-    simulation = new SimulationController(getReactionSelected(), <HTMLCanvasElement> document.getElementById('chart'), getElementsInputs());
+    simulation = new SimulationController(getReactionSelected(), <HTMLCanvasElement> document.getElementById('chart'), getInputsData());
     visibleDivChart();
     form.reset();
     jump("chart");
