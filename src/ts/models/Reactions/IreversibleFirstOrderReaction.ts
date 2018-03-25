@@ -2,7 +2,6 @@ import { IReaction } from "./IReaction";
 import { DefaultAttributesReaction } from "./DefaultAttributesReaction";
 import { IAttributesReaction } from "./IAttributesReaction";
 
-
 export class IreversibleFirstOrderReaction implements IReaction{
 
     private atributesReaction: IAttributesReaction;

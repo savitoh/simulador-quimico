@@ -1,7 +1,7 @@
 import {IChartController} from "./IChartController";
 import { ECharts } from "echarts";
 
-export class ChartController implements IChartController {
+export class ChartControllerForReactionsFirstOrder implements IChartController {
 
     private dataSeriesConcentrationOfAandB: any = {};
     private dataA: any[] = [];
@@ -30,18 +30,20 @@ export class ChartController implements IChartController {
         };
     }
 
+    private reactionDuration(): number {
+        return this.num_a.length*2000;
+    }
+
     private addSeriesInChart(): void {
         this.dataSeriesConcentrationOfAandB = this.getDataSeriesConcetrationOfAandB();
         this.dataA.push(this.dataSeriesConcentrationOfAandB.concentrationOfA);
         this.dataB.push(this.dataSeriesConcentrationOfAandB.concentrationOfB);
         this.chart.setOption({
             series: [{
-                data: this.dataA,
-                animationDuration: 1000
+                data: this.dataA
               },
               {
-                data: this.dataB,
-                animationDuration: 1000
+                data: this.dataB
               }
             ]
         });
@@ -50,6 +52,6 @@ export class ChartController implements IChartController {
         let intervalo = setInterval(this.addSeriesInChart.bind(this), 1900);
         setTimeout(function() {
             clearInterval(intervalo);
-        }, this.num_a.length*2000);
+        }, this.reactionDuration());
     }
 }

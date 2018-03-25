@@ -1,0 +1,10 @@
+:root {
+    --space: 1.5em;
+    --space-lg: 2em;
+    --bg-color: hsl(150, 45%, 50%);
+    --high-dppx: (-webkit-min-device-pixel-ratio: 1.5), 
+                    (min-resolution: 144dpi), (min-resolution: 1.5dppx);
+    --break-sm: (min-width: 384px);
+    --break-md: (min-width: 576px);
+    --break-lg: (min-width: 768px);
+}

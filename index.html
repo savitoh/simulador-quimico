@@ -1,12 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="dist/bundle.min.css">
     <title>Cinética Química</title>
   </head>
-  <body>
-    <div id="main" style="width: 100%; height: 450px"></div>
-    <script type="text/javascript" src="dist/app.bundle.js"></script>
+  <body class="Site">
+      <header class="Site-Header">
+          <div class="Header Header--cozy">
+            <div class="Header-titles">
+                <h1 class="Header-title">
+                    <a href="index.html">Simulador Químico</a>
+                </h1>
+                <h2 class="Header-subTitle">Taxas de reações</h2>
+            </div>
+            <div class="Header-actions">
+                <a class="Header-button Button Button--action Button--wide"
+                  href="https://github.com/savitoh/simulador-quimico">
+                  <span class="icon-github icon-large"></span>&nbsp; Código do Projeto
+                </a>
+                <a class="Header-button Button Button--wide"
+                  href="templates/sobre-projeto.html">
+                  <span class="icon-info icon-large"></span>&nbsp; Sobre o Projeto
+                </a>
+            </div>
+          </div>
+        </header>
+        <main class="Site-content">
+            <div class="Container">
+                <h1 class="Section-heading">Simulação</h1>
+                <form id="form">
+                    
+                    <div class="field-group">
+                        <div class="label">Escolha a Reação:</div>
+                        <div class="field">
+                            <select id="opcoes-reacoes" name="opcoes-reacoes">
+                                <option value="ireversibleFirstOrderReaction">Ireversível de 1º Grau</option>
+                                <option value="reversibleFirstOrderReaction">Reversível de 1º Grau</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="field-group">
+                        <label for="numberOfMolecules" class="label">Número de Moléculas:</label>
+                        <div class="field">
+                            <input name="numberOfMolecules" id="numberOfMolecules" type="number" value="" placeholder="Número de Moléculas" required>
+                        </div>
+                    </div>
+    
+                    <div class="field-group">
+                        <label for="temperatura" class="label">Temperatura Absoluta: </label>
+                        <div class="field">
+                            <input name="temperatura" id="temperatura" type="number" value="" placeholder="em kelvin" required>
+                        </div>
+                    </div>
+    
+                    <div class="field-group">
+                        <label for="energia-ativacao-a" class="label">Energia de Ativação A: </label>
+                        <div class="field">
+                            <input name="energia-ativacao-a" id="energia-ativacao-a" type="number" value="" placeholder="Energia" required>
+                        </div>
+                    </div>
+    
+                    <div class="field-group energia-ativacao-b" style="display:none">
+                        <label for="energia-ativacao-b" class="label">Energia de Ativação B: </label>
+                        <div class="field">
+                            <input name="energia-ativacao-b" id="energia-ativacao-b" type="number" value="" placeholder="Energia" disabled>
+                        </div>
+                    </div>
+    
+                    <div class="field-group">
+                        <div class="field">
+                            <button class=" Button Button--action Button--wide" id="btn-start-reaction" type="submit">
+                                <span class="icon-play icon-large "></span>&nbsp; Iniciar Reação
+                            </button>
+                        </div>
+                    </div>
+    
+                </form>
+                <div id="chart"></div>
+            </div>
+        </main>
+        <footer class="Site-footer">
+            <div class="Footer">
+                <div class="Footer-credits">
+                   <span class="Footer-credit">Criado e Mantido por <a href="https://twitter.com/savit0h">Sávio Raires</a>.</span>
+                   <span class="Footer-credit">Código fonte disponível sob <a href="">MIT</a> licença.</span>
+                   <span class="Footer-credit">Template modificado a partir do projeto <a href="https://philipwalton.github.io/solved-by-flexbox/">Solved by Flexbox.</a> </span>
+                </div>
+            </div>
+        </footer>
+        <script type="text/javascript" src="dist/app.bundle.js"></script>
   </body>
 </html>

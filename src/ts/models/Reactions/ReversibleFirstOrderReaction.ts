@@ -3,7 +3,7 @@ import { DefaultAttributesReaction } from "./DefaultAttributesReaction";
 import { IAttributesReaction } from "./IAttributesReaction";
 
 export class ReversibleFirstOrderReaction implements IReaction {
-    
+
     private atributesReaction: IAttributesReaction
     private E_ba: number = 2;
     private tetaB: number;

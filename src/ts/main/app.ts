@@ -1,32 +1,20 @@
-import { echart } from '../models/Chart/Chart';
-import { ChartTheme } from '../models/Chart/ChartTheme';
-import { getChartOptions } from '../models/Chart/ChartOption'; 
-import { IAttributesReaction } from '../models/Reactions/IAttributesReaction'
-import { IReaction } from '../models/Reactions/IReaction';
-import {ReactionFactory} from '../models/Reactions/ReactionFactory';
-import { IChartController } from '../models/Chart/IChartController';
-import { ChartControllerFactory } from '../models/Chart/ChartControllerFactory';
 
-let option = getChartOptions("reversibleFirstOrderReaction");
+import { SimulationController } from "../controllers/SimulationController";
+import {getReactionSelected} from "../controllers/FormController";
+import {getElementsInputs} from "../controllers/FormController";
+import {visibleDivChart} from "../controllers/FormController";
+import {modifyOptionSelected} from "../controllers/FormController";
+import {jump} from "../controllers/FormController";
 
-let factoryReaction = new ReactionFactory();
+const form = <HTMLFormElement>document.getElementById("form");
+let simulation: SimulationController;
 
-let attributesReaction = {numberOfMolecules: 100000, temperatura: 1};
+form.addEventListener("submit", (evt) => {
+	evt.preventDefault();
+    simulation = new SimulationController(getReactionSelected(), <HTMLCanvasElement> document.getElementById('chart'), getElementsInputs());
+    visibleDivChart();
+    form.reset();
+    jump("chart");
+    simulation.loadSimulation();
+});
 
-let reaction = factoryReaction.getReaction("ireversibleFirstOrderReaction", attributesReaction);
-reaction.startReaction();
-
-let concentrationOfAandB = reaction.getConcetrations();
-
-let chartOfConcentration = echart.init(<HTMLCanvasElement> document.getElementById('main'), ChartTheme);
-chartOfConcentration.setOption(option);
-window.onresize = function() {
-  if(chartOfConcentration != null && chartOfConcentration != undefined){
-    chartOfConcentration.resize();
-  }
-};
-
-let chartControllerFactory = new ChartControllerFactory();
-
-let chartController  = chartControllerFactory.getChartController("ireversibleFirstOrderReaction", chartOfConcentration, concentrationOfAandB);
-chartController.animateChart();
