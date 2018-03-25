@@ -1,4 +1,4 @@
-let optionsBase = {
+let baseOptions = {
     baseOption: {
       title: {
         text: 'Concentração de A e B em Função de passos Monte Carlo'
@@ -99,7 +99,7 @@ let optionsBase = {
   };
 
 function buildChartOptionSecondOrderReaction() {
-    const optionsChartSecondOrderReaction = optionsBase;
+    const optionsChartSecondOrderReaction = baseOptions;
     const title: string = "Concentração de A, B e C em função de passos Monte Carlo";
     const objectSeriesElementC = {
         name: '[C]',
@@ -117,7 +117,7 @@ function buildChartOptionSecondOrderReaction() {
 
 function getChartOptions(typeOfReaction: String): object {
     if(typeOfReaction == "reversibleFirstOrderReaction" || typeOfReaction == "ireversibleFirstOrderReaction") 
-        return optionsBase;
+        return baseOptions;
     else
         return buildChartOptionSecondOrderReaction();
 }

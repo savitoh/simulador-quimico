@@ -32,6 +32,7 @@ export class SimulationController {
         reaction.startReaction();
 
         let concentrationOfAandB = reaction.getConcetrations();
+    
 
         this.chartOfConcentration = echart.init(this.canvas, ChartTheme);
         let option = getChartOptions(this.typeOfReaction);

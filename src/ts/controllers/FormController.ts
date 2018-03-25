@@ -1,5 +1,6 @@
 const selectedOption  = <HTMLSelectElement>document.getElementById("opcoes-reacoes");
-const divEnergiaAtivacaoB = <HTMLInputElement>document.getElementById("energia-ativacao-b").parentNode.parentNode;
+const inputEnergiaAtivacaoB = <HTMLInputElement>document.getElementById("energia-ativacao-b");
+const divEnergiaAtivacaoB = inputEnergiaAtivacaoB.parentElement.parentElement;
 const divChart = <HTMLDivElement>document.getElementById("chart");
 
 const elementsIDs = ["numberOfMolecules", "temperatura", "energia-ativacao-a", "energia-ativacao-b"];
@@ -11,10 +12,14 @@ const jump = (h: string) => {
 }
 
 const visibleDivOptionSelected = () => {
-    if(selectedOption.value=="reversibleFirstOrderReaction")
+    if(selectedOption.value=="reversibleFirstOrderReaction"){
         divEnergiaAtivacaoB.style.display  = "flex";
-    else
+        inputEnergiaAtivacaoB.disabled = false;
+    }
+    else{
         divEnergiaAtivacaoB.style.display  = "none";
+        inputEnergiaAtivacaoB.disabled = true;
+    }
 };
 
 const modifyOptionSelected = () => selectedOption.addEventListener("change", visibleDivOptionSelected);
