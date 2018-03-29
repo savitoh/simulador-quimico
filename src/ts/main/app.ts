@@ -12,7 +12,6 @@ let simulation: SimulationController;
 modifyOptionSelected();
 
 form.addEventListener("submit", (evt) => {
-    console.log(getInputsData());
 	evt.preventDefault();
     simulation = new SimulationController(getReactionSelected(), <HTMLCanvasElement> document.getElementById('chart'), getInputsData());
     visibleDivChart();

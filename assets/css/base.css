@@ -66,6 +66,17 @@ pre {
   margin: 0 0 1.5em;
 }
 
+code {
+  font-size: .9em;
+  font-weight: normal;
+  color: #000;
+}
+
+pre > code {
+  font: inherit;
+  color: inherit;
+}
+
 code,
 pre {
   font-family: 'Menlo', 'Monaco', monospace;
@@ -102,17 +113,6 @@ input[type="submit"] {
   input[type="submit"] {
     width: auto;
   }
-}
-
-code {
-  font-size: .9em;
-  font-weight: normal;
-  color: #000;
-}
-
-pre > code {
-  font: inherit;
-  color: inherit;
 }
 
 hr {

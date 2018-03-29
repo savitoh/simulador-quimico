@@ -3,13 +3,11 @@ import { ECharts } from "echarts";
 
 export class ChartControllerForReactionsFirstOrder implements IChartController {
 
-    private dataSeriesConcentrationOfAandB: any = {};
-    private dataA: any[] = [];
-    private dataB: any[] = [];
+    private dataSeriesConcentrationOfA: number[] = [];
+    private dataSeriesConcentrationOfB: number[] = [];
     private chart: ECharts;
     private num_a: number[];
     private num_b: number[];
-    private indiceX: number = 0;
 
     constructor(chart: ECharts, concentrationOfAandB: Array<Array<number>>) {
         this.chart = chart;
@@ -17,39 +15,34 @@ export class ChartControllerForReactionsFirstOrder implements IChartController {
         this.num_b = concentrationOfAandB[1];
     }
 
-    private getDataSeriesConcetrationOfAandB(): any {
-        return {
-            concentrationOfA: [
-              this.indiceX,
-              this.num_a.shift()
-            ],
-            concentrationOfB: [
-              this.indiceX++,
-              this.num_b.shift()
-            ]
-        };
+    private getDataSeriesConcentrationOfAandB(concentration: number[]): Array<Array<number>> {
+        return concentration.map((value, index, array) => {
+            return [index, value];
+        });
     }
 
     private reactionDuration(): number {
         return this.num_a.length*2000;
     }
 
-    private addSeriesInChart(): void {
-        this.dataSeriesConcentrationOfAandB = this.getDataSeriesConcetrationOfAandB();
-        this.dataA.push(this.dataSeriesConcentrationOfAandB.concentrationOfA);
-        this.dataB.push(this.dataSeriesConcentrationOfAandB.concentrationOfB);
+    private addSeriesInChart(elementsConcentrationOfA: number[], elementsConcentrationOfB: number[]): void {
+        
+        this.dataSeriesConcentrationOfA.push(elementsConcentrationOfA.shift());
+        this.dataSeriesConcentrationOfB.push(elementsConcentrationOfB.shift());
         this.chart.setOption({
             series: [{
-                data: this.dataA
+                data: this.dataSeriesConcentrationOfA
               },
               {
-                data: this.dataB
+                data: this.dataSeriesConcentrationOfB
               }
             ]
         });
     }
     public animateChart(): void {
-        let intervalo = setInterval(this.addSeriesInChart.bind(this), 1900);
+        let elementsConcentrationOfA =  this.getDataSeriesConcentrationOfAandB(this.num_a);
+        let elementsConcentrationOfB =  this.getDataSeriesConcentrationOfAandB(this.num_b);
+        let intervalo = setInterval(this.addSeriesInChart.bind(this, elementsConcentrationOfA, elementsConcentrationOfB), 1900);
         setTimeout(function() {
             clearInterval(intervalo);
         }, this.reactionDuration());
