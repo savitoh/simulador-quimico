@@ -17,7 +17,30 @@ let baseOptions = {
         feature: {
           dataView: {
             title: 'Tabela de Dados',
-            lang: ['Concentração de A e B em Função de passos Monte Carlo', 'Voltar', 'Atualizar']
+            lang: ['Concentração de A e B em Função de passos Monte Carlo', 'Voltar', 'Atualizar'],
+            optionToContent: function(opt: any) {
+              var axisData = opt.xAxis[0].data;
+              var series = opt.series;
+              var table = '<table style="width:100%;text-align:center"><tbody><tr>' +
+                '<td>Passo Monte Carlo</td>' +
+                '<td>' + series[0].name + '</td>' +
+                '<td>' + series[1].name + '</td>' +
+                '</tr>';
+              const tamanho = axisData.length;
+              for (var i = 0, l = tamanho; i < l; i++) {
+                let dataConcentrantionOfA = series[0].data[i];
+                let dataConcentrantionOfB = series[1].data[i];
+                if(dataConcentrantionOfA && dataConcentrantionOfB) {
+                  table += '<tr>' +
+                    '<td>' + axisData[i] + '</td>' +
+                    '<td>' + dataConcentrantionOfA.slice(1) + '</td>' +
+                    '<td>' + dataConcentrantionOfB.slice(1) + '</td>' +
+                    '</tr>';
+                }
+              }
+              table += '</tbody></table>';
+              return table;
+            },
           },
           saveAsImage: {
             show: true,
@@ -33,6 +56,7 @@ let baseOptions = {
         type: 'value',
         scale: true,
         boundaryGap: false,
+        data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
         min: 0,
         max: 20
       },
