@@ -21,7 +21,6 @@ export class ReversibleFirstOrderReaction implements IReaction {
     constructor(atributesReaction: IAttributesReaction){
         this.atributesReaction = atributesReaction;
         this.Na = this.atributesReaction.numberOfMolecules;
-        this.Na = this.atributesReaction.numberOfMolecules;
         this.Nb = 0;
         this.A = new Array(this.atributesReaction.numberOfMolecules).fill(0);
         this.B = new Array(this.atributesReaction.numberOfMolecules).fill(0);
@@ -98,9 +97,7 @@ export class ReversibleFirstOrderReaction implements IReaction {
         this.num_b = this.num_b.map(it => it / DefaultAttributesReaction.amostra_tot);
     }
 
-    public startReaction(): void {
-        this.monteCarloSimluation();
-    }
+    public startReaction = (): void => this.monteCarloSimluation();
 
     public getConcetrations(): Array<Array<number>>{
         return [this.num_a, this.num_b];

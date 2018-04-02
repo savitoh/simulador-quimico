@@ -7,13 +7,13 @@ const form = <HTMLFormElement>document.getElementById("form");
 let simulation: SimulationController;
 let formController = new FormController();
 
-formController.modifyOptionSelected();
+formController.watchReactionTypeSelected();
 
 form.addEventListener("submit", (evt) => {
 	evt.preventDefault();
     simulation = new SimulationController(formController.getReactionSelected(),
                                          <HTMLCanvasElement> document.getElementById('chart'), formController.getInputsData());
-    formController.visibleDivChart();
+    formController.turnVisibleChartDiv();
     formController.jump("chart");
     simulation.loadSimulation();
 });

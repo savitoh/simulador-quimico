@@ -1,11 +1,12 @@
 import { echart } from '../models/Chart/Chart';
-import { ChartTheme } from '../models/Chart/ChartTheme';
-import { getChartOptions } from '../models/Chart/ChartOption';
+import { ChartTheme } from '../models/Chart/Chart-Options/ChartTheme';
 import { IAttributesReaction } from '../models/Reactions/IAttributesReaction';
 import { IReaction } from '../models/Reactions/IReaction';
 import { ReactionFactory } from '../models/Reactions/ReactionFactory';
 import { IChartController } from '../models/Chart/IChartController';
 import { ChartControllerFactory } from '../models/Chart/ChartControllerFactory';
+import { IBuildChartOption } from "../models/Chart/Chart-Options/IBuildChartOption";
+import { ChartOptionFactory } from '../models/Chart/Chart-Options/ChartOptionFactory';
 import { ECharts } from 'echarts';
 
 export class SimulationController {
@@ -27,22 +28,25 @@ export class SimulationController {
 
         this.chartOfConcentration.dispose();
 
-        let factoryReaction = new ReactionFactory();
-        let reaction = factoryReaction.getReaction(this.typeOfReaction, this.atributes);
+        let reactionFactory = new ReactionFactory();
+        let reaction = reactionFactory.getReaction(this.typeOfReaction, this.atributes);
         reaction.startReaction();
 
         let concentrationOfAandB = reaction.getConcetrations();
     
-
         this.chartOfConcentration = echart.init(this.canvas, ChartTheme);
-        let option = getChartOptions(this.typeOfReaction);
-        this.chartOfConcentration.setOption(option);
+        
+        let chartOptionFactory = new ChartOptionFactory();
+        let chartOption = chartOptionFactory.getChartOptions(this.typeOfReaction);
+        
+        this.chartOfConcentration.setOption(chartOption.buildChartOption());
         (<any>window).onresize = () => this.chartOfConcentration.resize();
         
 
         let chartControllerFactory = new ChartControllerFactory();
 
-        let chartController  = chartControllerFactory.getChartController(this.typeOfReaction, this.chartOfConcentration, concentrationOfAandB);
+        let chartController  = chartControllerFactory.getChartController(this.typeOfReaction, 
+                                                                this.chartOfConcentration, concentrationOfAandB);
         chartController.animateChart();
     }
 

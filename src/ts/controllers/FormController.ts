@@ -1,9 +1,9 @@
 export class FormController {
 
-     private selectedOption =  <HTMLSelectElement>document.getElementById("opcoes-reacoes");
+     private reactionTypeSelected =  <HTMLSelectElement>document.getElementById("opcoes-reacoes");
      private inputEnergiaAtivacaoB = <HTMLInputElement>document.getElementById("energiaAtivacaoElementoB");
      private divEnergiaAtivacaoB =this.inputEnergiaAtivacaoB.parentElement.parentElement;
-     private divChart = <HTMLDivElement>document.getElementById("chart");
+     private chartDiv = <HTMLDivElement>document.getElementById("chart");
 
      private elementsIDs = ["numberOfMolecules", "temperatura", "energiaAtivacaoElementoA", "energiaAtivacaoElementoB"];
 
@@ -24,13 +24,14 @@ export class FormController {
      };
 
     private visibleDivOptionSelected = () => {
-        if(this.selectedOption.value=="reversibleFirstOrderReaction")
+        if(this.reactionTypeSelected.value=="reversibleFirstOrderReaction" || 
+                this.reactionTypeSelected.value=="logreversibleFirstOrderReaction")
             this.showDivEnergiaAtivacaoB();
         else
            this.hiddenDivEnergiaAtivacaoB();   
     };
 
-    public modifyOptionSelected = () => this.selectedOption.addEventListener("change", this.visibleDivOptionSelected);
+    public watchReactionTypeSelected = () => this.reactionTypeSelected.addEventListener("change", this.visibleDivOptionSelected);
 
     private getElemetsInputs = (IDs: string[]) => {
         return IDs.reduce(function(acc: any, id) {
@@ -42,9 +43,9 @@ export class FormController {
 
     public getInputsData = () => {return this.getElemetsInputs(this.elementsIDs)};
 
-    public visibleDivChart = () => this.divChart.style.display = "block";
+    public turnVisibleChartDiv = () => this.chartDiv.style.display = "block";
 
-    public getReactionSelected = () => {return this.selectedOption.value};
+    public getReactionSelected = () => {return this.reactionTypeSelected.value};
 
 
 }

@@ -28,15 +28,10 @@ export const ChartTheme = {
       }
     }
   },
-  categoryAxis: {
+  logAxis: {
     axisLine: {
       lineStyle: {
-        color: '#333'
-      },
-      splitLine: {
-        lineStyle: {
-          color: ['#eee']
-        }
+        color: '#408829'
       }
     }
   },

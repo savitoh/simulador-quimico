@@ -1,5 +1,11 @@
 #chart {
     display: none;
     width: 100%; 
-    height: 450px
+    height: 550px;
+}
+
+@media(max-width: 720px){
+    #chart {
+        height: 450px;
+    }
 }

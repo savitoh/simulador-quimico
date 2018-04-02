@@ -1,7 +1,7 @@
 import {IChartController} from "./IChartController";
 import { ECharts } from "echarts";
 
-export class ChartControllerForReactionsFirstOrder implements IChartController {
+export class ChartControllerReactionsFirstOrder implements IChartController {
 
     private dataSeriesConcentrationOfA: number[] = [];
     private dataSeriesConcentrationOfB: number[] = [];
@@ -21,9 +21,7 @@ export class ChartControllerForReactionsFirstOrder implements IChartController {
         });
     }
 
-    private reactionDuration(): number {
-        return this.num_a.length*2000;
-    }
+    private reactionDuration = (): number =>  { return this.num_a.length*2000 };
 
     private addSeriesInChart(elementsConcentrationOfA: number[], elementsConcentrationOfB: number[]): void {
         
