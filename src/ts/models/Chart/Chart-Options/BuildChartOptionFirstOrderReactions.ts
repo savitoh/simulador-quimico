@@ -1,5 +1,5 @@
 import {IBuildChartOption} from "./IBuildChartOption";
-import {baseOptions} from "./BaseOptions";
+import {DefaultOptions} from "./DefaultOptions";
 
 export class BuildChartOptionFirstOrderReactions implements IBuildChartOption {
     
@@ -50,23 +50,30 @@ export class BuildChartOptionFirstOrderReactions implements IBuildChartOption {
         center: ['50%', '75%']
     }];
     
+    private buidBaseOptions(): void {
+      const title = "Concentração de A e B em Função de passos Monte Carlo";
+      DefaultOptions.baseOption.title.text = title;
+      DefaultOptions.baseOption.legend.data = ['[A]', '[B]'];
+      DefaultOptions.baseOption.toolbox.feature.dataView.lang[0] = title;
+      DefaultOptions.baseOption.toolbox.feature.dataView.optionToContent = this.formatDataTableForReactionsFirstOrder;
+      DefaultOptions.baseOption.yAxis.type = 'value';
+      DefaultOptions.baseOption.yAxis.max = 1;
+      DefaultOptions.baseOption.yAxis.min = 0;
+      DefaultOptions.baseOption.series = this.seriesOption;
+    }
+
+    private buidMediaOptions(): void {
+      const titleResponsive = "Concentração de A e B"; 
+      DefaultOptions.media[0].option.title.text = titleResponsive;
+      DefaultOptions.media[0].option.yAxis.interval = 1;
+      DefaultOptions.media[0].option.series = this.seriesMedia;
+      DefaultOptions.media[0].option.yAxis.nameLocation = "center";
+      DefaultOptions.media[0].option.yAxis.nameRotate = 90;
+    }
+
     buildChartOption(): object {
-        const optionsChartFirstOrderReactions = baseOptions;
-        const title = "Concentração de A e B em Função de passos Monte Carlo";
-        const titleResponsive = "Concentração de A e B"; 
-        optionsChartFirstOrderReactions.baseOption.title.text = title;
-        optionsChartFirstOrderReactions.baseOption.legend.data = ['[A]', '[B]'];
-        optionsChartFirstOrderReactions.baseOption.toolbox.feature.dataView.lang[0] = title;
-        optionsChartFirstOrderReactions.baseOption.yAxis.type = 'value';
-        optionsChartFirstOrderReactions.baseOption.yAxis.max = 1;
-        optionsChartFirstOrderReactions.baseOption.yAxis.min = 0;
-        optionsChartFirstOrderReactions.baseOption.toolbox.feature.dataView.optionToContent = this.formatDataTableForReactionsFirstOrder;
-        optionsChartFirstOrderReactions.baseOption.series = this.seriesOption;
-        optionsChartFirstOrderReactions.media[0].option.title.text = titleResponsive;
-        optionsChartFirstOrderReactions.media[0].option.yAxis.interval = 1;
-        optionsChartFirstOrderReactions.media[0].option.series = this.seriesMedia;
-        optionsChartFirstOrderReactions.media[0].option.yAxis.nameLocation = "center";
-        optionsChartFirstOrderReactions.media[0].option.yAxis.nameRotate = 90;
-        return optionsChartFirstOrderReactions;
+        this.buidBaseOptions();
+        this.buidMediaOptions();
+        return DefaultOptions;
     };
 }

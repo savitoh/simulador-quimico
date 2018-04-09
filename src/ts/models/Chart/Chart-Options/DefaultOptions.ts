@@ -1,4 +1,4 @@
-let baseOptions = {
+let DefaultOptions = {
     baseOption: {
       title: {
         text: ''
@@ -83,4 +83,4 @@ let baseOptions = {
     }]
   };
 
-  export { baseOptions };
+  export { DefaultOptions };

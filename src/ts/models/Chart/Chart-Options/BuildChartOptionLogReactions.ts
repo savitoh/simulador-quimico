@@ -1,5 +1,5 @@
 import {IBuildChartOption} from "./IBuildChartOption";
-import {baseOptions} from "./BaseOptions";
+import {DefaultOptions} from "./DefaultOptions";
 
 export class BuildChartOptionLogReactions implements IBuildChartOption {
     
@@ -37,25 +37,31 @@ export class BuildChartOptionLogReactions implements IBuildChartOption {
         center: ['50%', '30%']
       }];
 
+    private buidBaseOptions(): void {
+      const title = "Concentração de A em escala Log";
+      DefaultOptions.baseOption.title.text = title;
+      DefaultOptions.baseOption.legend.data = ['[A]'];
+      DefaultOptions.baseOption.toolbox.feature.dataView.lang[0] = title;
+      DefaultOptions.baseOption.toolbox.feature.dataView.optionToContent = this.formatDataTableForLogReactions;
+      DefaultOptions.baseOption.yAxis.type = 'log';
+      DefaultOptions.baseOption.yAxis.nameGap = 32;
+      delete DefaultOptions.baseOption.yAxis.min;
+      delete DefaultOptions.baseOption.yAxis.max;
+      DefaultOptions.baseOption.series = this.seriesOption;
+    }
+
+    private  buidMediaOptions(): void {
+      const titleResponsive = "Log Concentração de A";
+      DefaultOptions.media[0].option.title.text = titleResponsive;
+      delete DefaultOptions.media[0].option.yAxis.interval;
+      DefaultOptions.media[0].option.yAxis.nameLocation = "end";
+      DefaultOptions.media[0].option.yAxis.nameRotate = 1;
+      DefaultOptions.media[0].option.series = this.seriesMedia;
+    }
     
     buildChartOption(): object {
-        const optionsChartLogReactions = baseOptions;
-        const title = "Concentração de A em escala Log";
-        const titleResponsive = "Log Concentração de A";
-        optionsChartLogReactions.baseOption.title.text = title;
-        optionsChartLogReactions.baseOption.legend.data = ['[A]'];
-        optionsChartLogReactions.baseOption.toolbox.feature.dataView.lang[0] = title;
-        optionsChartLogReactions.baseOption.yAxis.type = 'log';
-        optionsChartLogReactions.baseOption.yAxis.nameGap = 32;
-        delete optionsChartLogReactions.baseOption.yAxis.min;
-        delete optionsChartLogReactions.baseOption.yAxis.max;
-        optionsChartLogReactions.baseOption.toolbox.feature.dataView.optionToContent = this.formatDataTableForLogReactions;
-        optionsChartLogReactions.baseOption.series = this.seriesOption;
-        optionsChartLogReactions.media[0].option.title.text = titleResponsive;
-        delete optionsChartLogReactions.media[0].option.yAxis.interval;
-        optionsChartLogReactions.media[0].option.yAxis.nameLocation = "end";
-        optionsChartLogReactions.media[0].option.yAxis.nameRotate = 1;
-        optionsChartLogReactions.media[0].option.series = this.seriesMedia;
-        return optionsChartLogReactions;
+        this.buidBaseOptions();
+        this.buidMediaOptions();
+        return DefaultOptions;
     };
 }
