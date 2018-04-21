@@ -1,12 +1,13 @@
 import { IReaction } from "./IReaction";
-import { DefaultAttributesReaction } from "./DefaultAttributesReaction";
+import { ConstantsReaction } from "./ConstantsOfReactions";
 import { IAttributesReaction } from "./IAttributesReaction";
 
 export class ReversibleFirstOrderReaction implements IReaction {
 
     private atributesReaction: IAttributesReaction
-    private E_ba: number = 2;
+    private E_ba: number;
     private tetaB: number;
+    private tetaA: number;
     private P_AB: number;
     private P_BA: number;
     private Na: number;
@@ -19,14 +20,15 @@ export class ReversibleFirstOrderReaction implements IReaction {
     constructor(atributesReaction: IAttributesReaction){
         this.atributesReaction = atributesReaction;
         this.Na = this.atributesReaction.numberOfMolecules;
-        this.tetaB = this.atributesReaction.temperatura/this.E_ba;
-        this.Na = this.atributesReaction.numberOfMolecules;
         this.Nb = 0;
         this.A = new Array(this.atributesReaction.numberOfMolecules).fill(0);
         this.B = new Array(this.atributesReaction.numberOfMolecules).fill(0);
-        this.num_a = new Array(DefaultAttributesReaction.t_max + 1).fill(0);
-        this.num_b = new Array(DefaultAttributesReaction.t_max + 1).fill(0);
-        this.P_AB = Math.exp(-1 / this.atributesReaction.temperatura);
+        this.num_a = new Array(ConstantsReaction.t_max + 1).fill(0);
+        this.num_b = new Array(ConstantsReaction.t_max + 1).fill(0);
+        this.E_ba = this.atributesReaction.energiaAtivacaoElementoB/this.atributesReaction.energiaAtivacaoElementoA;
+        this.tetaA = this.atributesReaction.temperatura/this.atributesReaction.energiaAtivacaoElementoA;
+        this.tetaB = this.tetaA/this.E_ba;
+        this.P_AB = Math.exp(-1 / this.tetaA);
         this.P_BA = Math.exp(-1 / this.tetaB);
     }
 
@@ -63,12 +65,12 @@ export class ReversibleFirstOrderReaction implements IReaction {
     private monteCarloSimluation(): void {
         let random: number;
         let index: number;
-        if(DefaultAttributesReaction.frac_a == 1) {
+        if(ConstantsReaction.frac_a == 1) {
             this.A.fill(1);
             this.B.fill(0);
             this.num_a[0] +=  this.Na / this.atributesReaction.numberOfMolecules;
             this.num_b[0] +=  this.Nb / this.atributesReaction.numberOfMolecules;
-            const length = DefaultAttributesReaction.t_max;
+            const length = ConstantsReaction.t_max;
             for(let i = 1; i <= length; i++){
                 this.metropolis();
                 this.num_a[i] += this.Na / this.atributesReaction.numberOfMolecules;
@@ -79,7 +81,7 @@ export class ReversibleFirstOrderReaction implements IReaction {
             this.B.fill(1);
             this.Na = 0;
             this.Na = this.atributesReaction.numberOfMolecules;
-            while(this.Na < (DefaultAttributesReaction.frac_a * this.atributesReaction.numberOfMolecules)){
+            while(this.Na < (ConstantsReaction.frac_a * this.atributesReaction.numberOfMolecules)){
                 random = Math.random() * this.atributesReaction.numberOfMolecules + 1;
                 index = Math.floor(random);
                 if (this.A[index] == 0) {
@@ -90,13 +92,11 @@ export class ReversibleFirstOrderReaction implements IReaction {
                 }
             }
         }
-        this.num_a = this.num_a.map(it => it / DefaultAttributesReaction.amostra_tot);
-        this.num_b = this.num_b.map(it => it / DefaultAttributesReaction.amostra_tot);
+        this.num_a = this.num_a.map(it => it / ConstantsReaction.amostra_tot);
+        this.num_b = this.num_b.map(it => it / ConstantsReaction.amostra_tot);
     }
 
-    public startReaction(): void {
-        this.monteCarloSimluation();
-    }
+    public startReaction = (): void => this.monteCarloSimluation();
 
     public getConcetrations(): Array<Array<number>>{
         return [this.num_a, this.num_b];

@@ -1,41 +1,51 @@
-const selectedOption  = <HTMLSelectElement>document.getElementById("opcoes-reacoes");
-const inputEnergiaAtivacaoB = <HTMLInputElement>document.getElementById("energia-ativacao-b");
-const divEnergiaAtivacaoB = inputEnergiaAtivacaoB.parentElement.parentElement;
-const divChart = <HTMLDivElement>document.getElementById("chart");
+export class FormController {
 
-const elementsIDs = ["numberOfMolecules", "temperatura", "energia-ativacao-a", "energia-ativacao-b"];
+     private reactionTypeSelected =  <HTMLSelectElement>document.getElementById("opcoes-reacoes");
+     private inputEnergiaAtivacaoB = <HTMLInputElement>document.getElementById("energiaAtivacaoElementoB");
+     private divEnergiaAtivacaoB =this.inputEnergiaAtivacaoB.parentElement.parentElement;
+     private chartDiv = <HTMLDivElement>document.getElementById("chart");
+
+     private elementsIDs = ["numberOfMolecules", "temperatura", "energiaAtivacaoElementoA", "energiaAtivacaoElementoB"];
 
 
-const jump = (h: string) => {
-    const top = document.getElementById(h).offsetTop;
-    window.scrollTo(0, top);
+    public jump = (h: string) => {
+        const top = document.getElementById(h).offsetTop;
+        window.scrollTo(0, top);
+     };
+
+    private hiddenDivEnergiaAtivacaoB = () => {
+        this.divEnergiaAtivacaoB.style.display  = "none";
+        this.inputEnergiaAtivacaoB.disabled = true;
+     };
+
+    private showDivEnergiaAtivacaoB = () => {
+        this.divEnergiaAtivacaoB.style.display  = "flex";
+        this.inputEnergiaAtivacaoB.disabled = false;
+     };
+
+    private visibleDivOptionSelected = () => {
+        if(this.reactionTypeSelected.value=="reversibleFirstOrderReaction" || 
+                this.reactionTypeSelected.value=="logreversibleFirstOrderReaction")
+            this.showDivEnergiaAtivacaoB();
+        else
+           this.hiddenDivEnergiaAtivacaoB();   
+    };
+
+    public watchReactionTypeSelected = () => this.reactionTypeSelected.addEventListener("change", this.visibleDivOptionSelected);
+
+    private getElemetsInputs = (IDs: string[]) => {
+        return IDs.reduce(function(acc: any, id) {
+            const element =  <HTMLInputElement>document.getElementById(id);
+            acc[id] = element.valueAsNumber;
+            return acc;
+        },{});
+    };
+
+    public getInputsData = () => {return this.getElemetsInputs(this.elementsIDs)};
+
+    public turnVisibleChartDiv = () => this.chartDiv.style.display = "block";
+
+    public getReactionSelected = () => {return this.reactionTypeSelected.value};
+
+
 }
-
-const visibleDivOptionSelected = () => {
-    if(selectedOption.value=="reversibleFirstOrderReaction"){
-        divEnergiaAtivacaoB.style.display  = "flex";
-        inputEnergiaAtivacaoB.disabled = false;
-    }
-    else{
-        divEnergiaAtivacaoB.style.display  = "none";
-        inputEnergiaAtivacaoB.disabled = true;
-    }
-};
-
-const modifyOptionSelected = () => selectedOption.addEventListener("change", visibleDivOptionSelected);
-
-const getElemets = (IDs: string[]) => {
-    return IDs.reduce(function(acc: any, id) {
-        const element =  <HTMLInputElement>document.getElementById(id);
-        acc[id] = element.valueAsNumber;
-        return acc;
-    },{});
-}
-
-const getElementsInputs = () => {return getElemets(elementsIDs)};
-
-const visibleDivChart = () => divChart.style.display = "block";
-
-const getReactionSelected = () => {return selectedOption.value};
-
-export {getReactionSelected, visibleDivChart, getElementsInputs, modifyOptionSelected, jump};

@@ -42,20 +42,39 @@ h1 {
 }
 
 h2 {
+  text-align: center;
   font-size: 1.333em;
-  font-weight: 600;
-  margin: 0 0 calc(1.5em/1.333);
+  font-weight: 400;
+  margin: 20px 0px 40px 0px; 
+}
+
+@media (max-width: 720px) {
+  h2 {
+    font-size: 1em;
+    font-weight: 300;
+  }
 }
 
 h3 {
   font-size: 1em;
-  font-weight: 600;
+  font-weight: 400;
   margin: 0 0 1.5em;
 }
 
 p,
 pre {
   margin: 0 0 1.5em;
+}
+
+code {
+  font-size: .9em;
+  font-weight: normal;
+  color: #000;
+}
+
+pre > code {
+  font: inherit;
+  color: inherit;
 }
 
 code,
@@ -94,17 +113,6 @@ input[type="submit"] {
   input[type="submit"] {
     width: auto;
   }
-}
-
-code {
-  font-size: .9em;
-  font-weight: normal;
-  color: #000;
-}
-
-pre > code {
-  font: inherit;
-  color: inherit;
 }
 
 hr {
